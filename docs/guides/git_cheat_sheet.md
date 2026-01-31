@@ -16,17 +16,20 @@ git clone [https://github.com/vepuer/madrid-mobility-intelligence.git](https://g
 cd madrid-mobility-intelligence
 ```
 
-### B. Creating Directory Structure
+### B. Creating Directory Structure & Tracking
 
-We use `mkdir -p` to create parent and child directories at the same time.
+We use `mkdir -p` to create folders. Since Git **ignores empty folders**, we must create a `.gitkeep` file inside them to ensure they are uploaded to GitHub.
 
 ```bash
-# Create data layers
+# 1. Create directory structure
 mkdir -p data/bronze data/silver data/gold
-
-# Create code and documentation folders
 mkdir -p src/ingestion src/processing src/utils
 mkdir -p docs/guides notebooks models tests
+
+# 2. Add .gitkeep files (Required for Git to track empty folders)
+touch data/bronze/.gitkeep data/silver/.gitkeep data/gold/.gitkeep
+touch src/ingestion/.gitkeep src/processing/.gitkeep src/utils/.gitkeep
+touch notebooks/.gitkeep models/.gitkeep tests/.gitkeep
 ```
 
 ### C. Security Configuration (.gitignore)
@@ -63,7 +66,6 @@ git checkout -b feature/my-new-task
 
 # 3. Check which branch you are on
 git branch
-
 ```
 
 ## 3. Commit Message Conventions
@@ -85,7 +87,6 @@ git status              # 1. Check what changed
 git add .               # 2. Stage all changes
 git commit -m "feat: description of work" # 3. Save snapshot
 git push origin feature/my-new-task       # 4. Upload to GitHub
-
 ```
 
 ## 5. Useful Commands
@@ -93,5 +94,3 @@ git push origin feature/my-new-task       # 4. Upload to GitHub
 * **`git pull`**: Download changes from the cloud.
 * **`git log --oneline --graph`**: Show history of commits visually.
 * **`git checkout -`**: Switch back to the previous branch.
-
-```
