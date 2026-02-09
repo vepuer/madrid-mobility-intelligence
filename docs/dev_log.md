@@ -27,3 +27,27 @@
 
 ### 🚧 Current Blockers
 * Waiting for EMT MobilityLabs API keys approval.
+
+
+## Week 2: Data Ingestion & Version Control (Feb 2026)
+
+**Goal:** Implement scalable data ingestion and establish Data Version Control (DVC).
+
+### 📅 2026-02-09
+
+* **Containerization (Docker):**
+    * Created `Dockerfile` (Python 3.9 Slim) and `docker-compose.yml` to isolate the ingestion environment.
+    * Implemented volume mapping to save downloaded data directly to the host machine.
+
+
+* **Data Ingestion (BiciMAD):**
+    * Developed `src/ingestion/ingest_bicimad.py` to automate downloading historical data.
+    * Implemented a **smart scraper** that detects available years (2017–2023) and downloads ZIP files automatically.
+    * Successfully ingested **~4GB** of raw data into `data/bronze`.
+
+
+* **Data Version Control (DVC):**
+    * Initialized DVC to handle large binary files (preventing Git bloat).
+    * Configured **Hybrid Versioning Strategy**:
+    * **Git:** Tracks code, DVC metadata (`.dvc`), and documentation.
+    * **DVC:** Tracks the actual `data/bronze` directory.
