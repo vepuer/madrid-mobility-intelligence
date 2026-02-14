@@ -51,3 +51,28 @@
     * Configured **Hybrid Versioning Strategy**:
     * **Git:** Tracks code, DVC metadata (`.dvc`), and documentation.
     * **DVC:** Tracks the actual `data/bronze` directory.
+
+Here is the updated section for your `dev_log.md`. You can copy and paste this block directly at the bottom of your file, under the **Week 2** section.
+
+I have summarized the Docker fixes, the successful API connection, and the specific data endpoints we verified today.
+
+---
+
+### 📅 2026-02-14
+
+* **Infrastructure Refactor (Docker):**
+* Refactored `docker-compose.yml` to correctly map local volumes (`src/`, `notebooks/`).
+* Enabled "Hot-Reloading": Changes in local code are now immediately reflected in the container without rebuilding.
+
+
+* **API Integration (EMT MobilityLabs):**
+* **Authentication:** Fixed header protocols (`accessToken`) and successfully established connection.
+* **Bus Data:** Verified `v2/transport/busemtmad/stops/{id}/arrives/` endpoint. Successfully extracted Real-Time GPS, incident status, and arrival estimates.
+* **BiciMAD Data:** Verified `v1/transport/bicimad/stations/` endpoint. Confirmed access to real-time bike availability (`dock_bikes`) for intermodal analysis.
+* **Topology:** Investigated `lines/info` endpoint. Confirmed it provides Line Metadata (Head/Tail/Length) but requires calculating frequency from real-time data.
+
+
+* **Data Strategy:**
+* Defined the **"Weather vs. Mobility"** correlation model.
+* Selected specific features for the future ingestion pipeline: Precipitation (Weather), `dock_bikes` (BiciMAD), and `estimateArrive` (EMT).
+
