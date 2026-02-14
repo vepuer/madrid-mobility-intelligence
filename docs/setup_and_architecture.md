@@ -57,6 +57,18 @@ madrid-mobility-intelligence/
 * **Purpose:** Ensures reproducibility. The ingestion and processing scripts run in an isolated container to avoid "it works on my machine" issues.
 * **Usage:** We use `docker-compose` to spin up services (ingestion, database, notebooks).
 
+We use a **Service-Oriented Architecture** in `docker-compose.yml`:
+
+1.  **`ingestor` (Ephemeral Task):**
+    * **Purpose:** Runs heavy extraction scripts and exits immediately.
+    * **Benefit:** Keeps the system clean. We use `docker-compose run --rm` so it doesn't consume resources when idle.
+    * **Mounts:** Maps `./data` to ensure downloaded files persist on the host.
+
+2.  **`notebook` (Persistent Service):**
+    * **Purpose:** Runs a Jupyter Lab server for interactive analysis.
+    * **Benefit:** Allows developers to explore data using a browser or VS Code.
+    * **Port:** Exposed on `8888`.
+
 ### B. DVC (Data Version Control)
 
 * **Purpose:** Git is designed for code (text), not massive datasets. We use DVC to track data changes without crashing the repository.
