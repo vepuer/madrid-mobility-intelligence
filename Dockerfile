@@ -1,20 +1,19 @@
-# Use an official lightweight Python image
+# Dockerfile
 FROM python:3.9-slim
 
-# Force Python to print immediately (Unbuffered)
+# Prevent Python from buffering stdout and stderr
 ENV PYTHONUNBUFFERED=1
 
-# Set the working directory inside the container
+# Set the working directory
 WORKDIR /app
 
-# Copy the requirements file first (for caching)
+# Copy requirements and install dependencies
 COPY requirements.txt .
-
-# Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
+ENV PATH="${PATH}:/root/.local/bin"
 
-# Copy the rest of the code
+# Copy the rest of the application code
 COPY . .
 
-# By default, run the ingestion script
-CMD ["python", "src/ingestion/ingest_bicimad.py"]
+# 🛑 GENERIC COMMAND: Just start a shell and wait for instructions
+CMD ["bash"]

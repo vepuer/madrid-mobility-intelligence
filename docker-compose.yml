@@ -1,8 +1,33 @@
-version: '3.8'
-
 services:
-  ingestion:
+  # 🛠️ Service 1: The "Swiss Army Knife" for Scripts
+  ingestor:
     build: .
     volumes:
-      # Maps your local 'data' folder to the container's '/app/data' folder
+      - .:/app           # Syncs code live
+      - ./data:/app/data # Syncs data folder
+    environment:
+      # Pass the secrets from your host .env file to the container
+      - EMT_CLIENT_ID=${EMT_CLIENT_ID}
+      - EMT_PASSKEY=${EMT_PASSKEY}
+  
+
+  # 📓 Service 2: Jupyter Notebook
+  notebook:
+    build: .
+    ports:
+      - "8888:8888"
+    volumes:
+      - .:/app
       - ./data:/app/data
+    environment:
+      - EMT_CLIENT_ID=${EMT_CLIENT_ID}
+      - EMT_PASSKEY=${EMT_PASSKEY}
+    # Specific command to launch Jupyter
+    command: >
+      jupyter lab 
+      --ip=0.0.0.0 
+      --port=8888 
+      --no-browser 
+      --allow-root 
+      --NotebookApp.token='${JUPYTER_TOKEN}' 
+      --ServerApp.disable_check_xsrf=True

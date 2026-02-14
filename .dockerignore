@@ -1,0 +1,10 @@
+# 1. Ignorar TODO por defecto
+*
+
+# 2. Permitir SOLO lo necesario (con el signo de exclamación)
+!src/
+!requirements.txt
+!Dockerfile
+!docker-compose.yml
+!.env
+!README.md
